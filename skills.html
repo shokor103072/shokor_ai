@@ -5,6 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skills - Md Shokor A Rahaman</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #121212, #1e1e1e);
+            color: #eaeaea;
+            text-align: center;
+            overflow-x: hidden;
+            transition: background 0.5s ease-in-out;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 50px 20px;
+            color: white;
+            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-in-out;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(30, 30, 30, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #8a85ff;
+        }
+        nav a {
+            text-decoration: none;
+            color: #8a85ff;
+            font-weight: 600;
+            margin: 0 15px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: transform 0.3s, color 0.3s, background 0.3s;
+        }
+        nav a:hover {
+            color: white;
+            background: rgba(138, 133, 255, 0.2);
+            transform: scale(1.1);
+        }
+        section {
+            background: rgba(30, 30, 30, 0.9);
+            margin: 30px auto;
+            padding: 30px;
+            max-width: 900px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .skill-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+        .skill-box:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        footer {
+            margin-top: 30px;
+            background: #222;
+            color: white;
+            padding: 15px;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
 <body>
 
@@ -22,12 +102,38 @@
 
 <section>
     <h2>Skills</h2>
-    <p>Python | ML | NLP | Computer Vision | Transformers | LLM | TensorFlow | PyTorch | Cloud (AWS, GCP)</p>
+    <div class="skills-container">
+        <div class="skill-box">Python</div>
+        <div class="skill-box">Machine Learning</div>
+        <div class="skill-box">NLP</div>
+        <div class="skill-box">Computer Vision</div>
+        <div class="skill-box">Transformers</div>
+        <div class="skill-box">LLM</div>
+        <div class="skill-box">TensorFlow</div>
+        <div class="skill-box">PyTorch</div>
+        <div class="skill-box">Cloud (AWS, GCP)</div>
+    </div>
 </section>
 
 <footer>
     <p>&copy; 2025 Md Shokor A Rahaman. All Rights Reserved.</p>
 </footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const sections = document.querySelectorAll("section");
+        const revealSections = () => {
+            sections.forEach(section => {
+                const position = section.getBoundingClientRect().top;
+                if (position < window.innerHeight * 0.85) {
+                    section.classList.add("visible");
+                }
+            });
+        };
+        window.addEventListener("scroll", revealSections);
+        revealSections();
+    });
+</script>
 
 </body>
 </html>

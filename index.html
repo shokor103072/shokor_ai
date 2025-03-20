@@ -6,6 +6,8 @@
     <title>Md Shokor A Rahaman - Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5Yzq/4jpV4iIsZnfHW7ONdr/oOxEq5z5/efobnA3jdmvJ6fcq/YVWTp42+Jcjpw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         /* General Styles */
         body {
@@ -147,14 +149,6 @@
             max-width: 800px;
             border-radius: 12px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         section h2 {
@@ -268,6 +262,28 @@
             border: none;
         }
 
+        /* Section Reveal Animation */
+        .section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Animate.css integration for scroll animations */
+        .animate__animated {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+
+        .animate__fadeIn {
+            animation-name: fadeIn;
+        }
+
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             header {
@@ -300,6 +316,25 @@
                 justify-content: flex-start; /* Align to the left on smaller screens */
             }
         }
+
+        /* Custom Animations (example) */
+        .custom-animation {
+            animation: customFadeIn 1s ease forwards;
+        }
+
+        @keyframes customFadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Cursor Styles */
+        body {
+            cursor: url('cursor.png'), auto; /* Custom cursor */
+        }
+
+        a, button, .skill-box {
+            cursor: url('cursor_hover.png'), pointer; /* Hover cursor */
+        }
     </style>
 </head>
 <body>
@@ -321,7 +356,7 @@
     </nav>
 
     <!-- Home Section -->
-    <section id="home">
+    <section id="home" class="section">
         <h2>Welcome to My Portfolio</h2>
         <p>Explore my journey in AI research, experience, and publications.</p>
         <p>Feel free to navigate through the sections to learn more about my work.</p>
@@ -329,14 +364,14 @@
     </section>
 
     <!-- About Section -->
-    <section id="about">
+    <section id="about" class="section">
         <h2>About Me</h2>
         <p>Md Shokor A Rahaman is an AI researcher and PhD candidate focused on microseismic event detection using Transformer models. He bridges cutting-edge research with practical AI solutions.</p>
         <a href="about.html" target="_blank">View Full About Page</a>
     </section>
 
     <!-- Experience Section -->
-    <section id="experience">
+    <section id="experience" class="section">
         <h2>Experience</h2>
 
         <h3>Senior AI Engineer - Superstring Capital, Zhejiang, China</h3>
@@ -351,7 +386,7 @@
     </section>
 
     <!-- Publications Section -->
-    <section id="publications">
+    <section id="publications" class="section">
         <h2>Publications</h2>
         <ul>
             <li>“Optimization of hydropower generation,” <em>Energy Reports</em>, 2020.</li>
@@ -362,7 +397,7 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills">
+    <section id="skills" class="section">
         <h2>Skills</h2>
         <div class="skills-container">
             <div class="skill-box">Python</div>
@@ -379,14 +414,15 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact">
+    <section id="contact" class="section">
         <h2>Contact</h2>
         <p>LinkedIn: <a href="https://www.linkedin.com/in/md-shokor-a-rahaman/" target="_blank">Md Shokor A Rahaman</a></p>
         <p>Email: <a href="mailto:md_17009796@utp.edu.my">md_17009796@utp.edu.my</a></p>
         <p>Phone: +60135758623</p>
         <a href="contact.html" target="_blank">View Full Contact</a>
     </section>
-    <section id="CV">
+
+    <section id="CV" class="section">
         <h2>My CV</h2>
         <div class="cv-container">
             <iframe src="Resume - Shokor A Rahaman.pdf" width="100%" height="900px"></iframe>
@@ -397,46 +433,48 @@
         <p>© 2025 Md Shokor A Rahaman. All Rights Reserved.</p>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const sections = document.querySelectorAll("section");
-            const revealSections = () => {
-                sections.forEach(section => {
-                    const position = section.getBoundingClientRect().top;
-                    if (position < window.innerHeight * 0.85) {
-                        section.classList.add("visible");
-                    }
-                });
-            };
-            window.addEventListener("scroll", revealSections);
-            revealSections();
+    $(document).ready(function() {
+        // Typing Animation
+        const elements = $(".animated-text");
+        elements.each(function(index) {
+            $(this).css("width", "0"); // Reset width before animation
+            setTimeout(() => {
+                $(this).css("animation", "typing 2s steps(40, end) forwards");
+            }, index * 1500);
+        });
 
-            // Smooth Scrolling
-            document.querySelectorAll('nav a').forEach(anchor => {
-                anchor.addEventListener('click', function(event) {
-                    if (this.getAttribute('href').startsWith("#")) {
-                        event.preventDefault();
-                        const targetId = this.getAttribute('href').substring(1);
-                        document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
+        // Theme Toggle
+        $("#theme-toggle").click(function() {
+            $("body").toggleClass("dark-mode");
+        });
 
-            // Theme Toggle
-            const themeToggle = document.getElementById("theme-toggle");
-            themeToggle.addEventListener("click", () => {
-                document.body.classList.toggle("dark-mode");
-            });
+        // Smooth Scrolling
+        $('nav a[href^="#"]').on('click', function(event) {
+            event.preventDefault();
+            $('html, body').animate({
+                scrollTop: $($.attr(this, 'href')).offset().top
+            }, 800);
+        });
 
-            // Typing Animation
-            const elements = document.querySelectorAll(".animated-text");
-            elements.forEach((el, index) => {
-                el.style.width = "0";
-                setTimeout(() => {
-                    el.style.animation = "typing 2s steps(40, end) forwards";
-                }, index * 1500);
+        // Section Reveal Animation using Waypoints
+        $('.section').each(function() {
+            $(this).waypoint(function(direction) {
+                if (direction === 'down') {
+                    $(this.element).addClass('animate__animated animate__fadeIn');
+                }
+            }, {
+                offset: '85%'
             });
         });
+
+        // Custom Cursor
+        // Note: Make sure cursor.png and cursor_hover.png are in the same directory
+        // as your HTML file.  Also, custom cursors might not work in all browsers.
+
+    });
     </script>
 
 </body>

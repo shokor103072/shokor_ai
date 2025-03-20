@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Md Shokor A Rahaman - Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        /* General Styles */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -16,32 +17,93 @@
             text-align: center;
             overflow-x: hidden;
             transition: background-color 0.5s ease-in-out;
+            line-height: 1.6;
         }
+
+        /* Header Styles */
         header {
             background: linear-gradient(135deg, #667eea, #764ba2);
-            padding: 50px 20px;
+            padding: 60px 20px;
             color: white;
             animation: fadeIn 1s ease-in-out;
+            position: relative;
+            overflow: hidden; /* Hide overflow from animated circles */
         }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        header::before, header::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1); /* Translucent circles */
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+            z-index: 0;
+        }
+
+        header::before {
+            top: -50px;
+            left: 50px;
+        }
+
+        header::after {
+            bottom: -50px;
+            right: 50px;
+            animation-delay: -3s; /* Offset the animation */
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-20px) translateX(10px);
+            }
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+        }
+
+        header img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Add shadow to the profile picture */
+            transition: transform 0.3s ease-in-out; /* Add transition for the hover effect */
+            cursor: pointer; /* Change the cursor to a pointer */
+        }
+
+        header img:hover {
+            transform: scale(1.1); /* Scale up the image on hover */
+        }
+
         @keyframes typing {
             from { width: 0; }
             to { width: 100%; }
         }
+
         .animated-text {
             display: inline-block;
             overflow: hidden;
             white-space: nowrap;
             border-right: 2px solid white;
             animation: typing 3s steps(40, end) forwards, blink 0.75s step-end infinite;
+            position: relative; /* Ensure text stays above floating circles */
+            z-index: 1;
         }
+
         @keyframes blink {
             from, to { border-color: transparent; }
             50% { border-color: white; }
         }
+
+        /* Navigation Styles */
         nav {
             display: flex;
             justify-content: center;
@@ -51,22 +113,37 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
         }
+
         nav a {
             text-decoration: none;
             color: #8a85ff;
             font-weight: 600;
             margin: 0 15px;
-            transition: transform 0.3s, color 0.3s;
+            transition: transform 0.3s, color 0.3s, padding 0.3s;
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex; /* Use flex to center items */
+            align-items: center; /* Vertically center the items */
         }
+
+        nav a i {
+            margin-right: 5px; /* Add space between the icon and text */
+            font-size: 1.1em; /* Adjust icon size */
+        }
+
         nav a:hover {
             color: white;
             transform: scale(1.1);
+            background: rgba(138, 133, 255, 0.1); /* Subtle background on hover */
         }
+
+        /* Section Styles */
         section {
             background: #1e1e1e;
-            margin: 20px auto;
-            padding: 30px;
+            margin: 30px auto;
+            padding: 40px;
             max-width: 800px;
             border-radius: 12px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
@@ -74,54 +151,175 @@
             transform: translateY(50px);
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
+
         section.visible {
             opacity: 1;
             transform: translateY(0);
         }
+
+        section h2 {
+            color: #8a85ff;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Add text shadow */
+        }
+
+        /* Theme Toggle Styles */
         .theme-toggle {
             background: #764ba2;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 12px 24px;
+            border-radius: 25px;
             cursor: pointer;
             font-size: 1rem;
             transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Add shadow */
         }
+
         .theme-toggle:hover {
             background: #8a85ff;
             transform: scale(1.1);
         }
+
         .dark-mode {
             background-color: #eaeaea;
             color: #121212;
         }
+
+        /* Skills Section */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .skill-box {
+            background: rgba(138, 133, 255, 0.1); /* Subtle skill background */
+            color: #8a85ff;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer; /* Change cursor to pointer */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Small shadow */
+        }
+
+        .skill-box:hover {
+            transform: translateY(-3px); /* Slightly move the box up on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Larger shadow on hover */
+        }
+
+        /* Publication Links */
+        section a[href*="scholar.google.com"] {
+            color: #8a85ff;
+            text-decoration: none;
+            border-bottom: 1px dashed #8a85ff;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        section a[href*="scholar.google.com"]:hover {
+            color: white;
+            border-bottom-color: white;
+        }
+
+        /* Footer Styles */
         footer {
-            margin-top: 20px;
+            margin-top: 30px;
             background: #222;
             color: white;
-            padding: 15px;
+            padding: 20px;
             font-size: 0.9em;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+        }
+
+        footer p {
+            margin: 0; /* Remove default margin */
+        }
+
+        /* Contact Section - Enhanced Links */
+        #contact p a {
+            color: #8a85ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        #contact p a:hover {
+            color: white;
+        }
+
+        /* CV iframe Container */
+        .cv-container {
+            position: relative; /* Allows absolute positioning of overlay */
+            padding-bottom: 56.25%; /* 16:9 aspect ratio for the iframe */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .cv-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            border: none;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 20px;
+            }
+
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            .animated-text {
+                font-size: 1.1em;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav a {
+                margin: 10px 0;
+                padding: 10px;
+            }
+
+            section {
+                padding: 30px;
+            }
+
+            .skills-container {
+                justify-content: flex-start; /* Align to the left on smaller screens */
+            }
         }
     </style>
 </head>
 <body>
+
     <header>
         <img src="Photo.png" alt="Md Shokor A Rahaman" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
         <h1>Md Shokor A Rahaman</h1>
         <p class="animated-text">AI Researcher • PhD Candidate • Senior AI Engineer</p>
     </header>
-    
+
     <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#publications">Publications</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-        <a href="#CV">CV</a>
+        <a href="#home"><i class="fas fa-home"></i> Home</a>
+        <a href="#about"><i class="fas fa-user"></i> About</a>
+        <a href="#experience"><i class="fas fa-briefcase"></i> Experience</a>
+        <a href="#publications"><i class="fas fa-book"></i> Publications</a>
+        <a href="#skills"><i class="fas fa-wrench"></i> Skills</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+        <a href="#CV"><i class="fas fa-file"></i>CV</a>
     </nav>
-    
+
     <!-- Home Section -->
     <section id="home">
         <h2>Welcome to My Portfolio</h2>
@@ -129,18 +327,18 @@
         <p>Feel free to navigate through the sections to learn more about my work.</p>
         <button class="theme-toggle" id="theme-toggle">Toggle Theme</button>
     </section>
-    
+
     <!-- About Section -->
     <section id="about">
         <h2>About Me</h2>
         <p>Md Shokor A Rahaman is an AI researcher and PhD candidate focused on microseismic event detection using Transformer models. He bridges cutting-edge research with practical AI solutions.</p>
         <a href="about.html" target="_blank">View Full About Page</a>
     </section>
-    
+
     <!-- Experience Section -->
     <section id="experience">
         <h2>Experience</h2>
-    
+
         <h3>Senior AI Engineer - Superstring Capital, Zhejiang, China</h3>
         <p><strong>Sep 2023 - Present</strong></p>
         <ul>
@@ -149,9 +347,9 @@
             <li>Built scalable APIs and agentic workflows.</li>
         </ul>
         <a href="experience.html" target="_blank">View Full Experience</a>
-    
+
     </section>
-    
+
     <!-- Publications Section -->
     <section id="publications">
         <h2>Publications</h2>
@@ -162,7 +360,7 @@
         <p><a href="https://scholar.google.com/citations?user=Iqpq2h4AAAAJ&hl=en" target="_blank">Google Scholar Profile</a></p>
         <a href="publications.html" target="_blank">View Full Publications</a>
     </section>
-    
+
     <!-- Skills Section -->
     <section id="skills">
         <h2>Skills</h2>
@@ -179,7 +377,7 @@
         </div>
         <a href="skills.html" target="_blank">View Full Skills</a>
     </section>
-    
+
     <!-- Contact Section -->
     <section id="contact">
         <h2>Contact</h2>
@@ -194,11 +392,12 @@
             <iframe src="Resume - Shokor A Rahaman.pdf" width="100%" height="900px"></iframe>
         </div>
     </section>
+
     <footer>
-        <p>&copy; 2025 Md Shokor A Rahaman. All Rights Reserved.</p>
+        <p>© 2025 Md Shokor A Rahaman. All Rights Reserved.</p>
     </footer>
-    
-    <script> 
+
+    <script>
         document.addEventListener("DOMContentLoaded", () => {
             const sections = document.querySelectorAll("section");
             const revealSections = () => {
@@ -211,7 +410,7 @@
             };
             window.addEventListener("scroll", revealSections);
             revealSections();
-    
+
             // Smooth Scrolling
             document.querySelectorAll('nav a').forEach(anchor => {
                 anchor.addEventListener('click', function(event) {
@@ -222,7 +421,7 @@
                     }
                 });
             });
-    
+
             // Theme Toggle
             const themeToggle = document.getElementById("theme-toggle");
             themeToggle.addEventListener("click", () => {
@@ -239,6 +438,6 @@
             });
         });
     </script>
-    
-    </body>
-    </html>
+
+</body>
+</html>
